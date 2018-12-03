@@ -1,0 +1,33 @@
+{
+  "name": "gringottsbankserver",
+  "version": "1.0.0",
+  "description": "API GringottsBank",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvanadeWarriors/GringottsBankServer.git"
+  },
+  "author": "AvanadeWarriors",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AvanadeWarriors/GringottsBankServer/issues"
+  },
+  "homepage": "https://github.com/AvanadeWarriors/GringottsBankServer#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "debug": "^4.1.0",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "jsonwebtoken": "^8.4.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.3.14",
+    "mongoose-float": "^1.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
+}
