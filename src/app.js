@@ -3,7 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser') // Todo request será convertido em json
 const mongoose = require('mongoose');
-const config = require('./config')
+const config = require('../ecosystem.config')
 
 
 const app = express();
@@ -23,6 +23,17 @@ mongoose.connect(config.connerctionString, {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false})) // espaço = %20. Aqui podemos utilizar queryString.
+app.use(bodyParser.json({
+  limit: '5mb'
+}));
+
+// Habilita o CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-access-token');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
+});
 
 //carrega os models
 const AccountModel = require('./models/Account');
