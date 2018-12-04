@@ -25,6 +25,7 @@
     "http": "0.0.0",
     "jsonwebtoken": "^8.4.0",
     "md5": "^2.2.1",
+    "mongo-morgan-ext": "^1.0.2",
     "mongoose": "^5.3.14",
     "mongoose-float": "^1.0.3"
   },
