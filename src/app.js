@@ -44,7 +44,7 @@ const CustomerModel = require('./models/Customer');
 //carregar as rotas
 const indexRoute = require('./routes');
 const accountRoute = require('./routes/account');
-const customerRoute = require('./routes/custumer');
+const customerRoute = require('./routes/customer');
 
 app.use('/', indexRoute);
 app.use('/account', accountRoute);

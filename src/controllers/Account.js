@@ -8,12 +8,10 @@ const Validation = require('../validators/fluent-validator');
 
 module.exports = {
 
-    //O ideal deste item e levar alguns dados importandes do cliente e o saldo.
+    //O ideal deste item é levar alguns dados importandes do cliente e o saldo.
     async index(req, res, next){
-        res.status(200).send({
-            title: "GringottsBank API",
-            version: "1.0.0"
-        });
+        let account = await repository.getById(req.params.id);
+        return res.json(account);
     },
 
     // async é vida hahaha
@@ -37,6 +35,6 @@ module.exports = {
             });
             
         }
-    }
+    },
 
 }

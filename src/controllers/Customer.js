@@ -1,7 +1,9 @@
 'use strict'
 
-const repository = require('../repositories/customerRepository')
+const repositoryCustomer = require('../repositories/customerRepository');
+const repositoryAccount = require('../repositories/accountRepository');
 const Validation = require('../validators/fluent-validator'); //Valida o conteudo antes de chegar no mongoose, importante futuramente
+const userAgentService = require('../services/userAgentService');
 const md5 = require('md5');
 const authService = require('../services/authService')
 
@@ -15,7 +17,7 @@ module.exports = {
     async store(req, res, next){
         try {
 
-            await repository.create({
+            const customerId = await repositoryCustomer.create({
                 name: req.body.name,
                 lastName: req.body.lastName,
                 birthDate: req.body.birthDate,
@@ -26,6 +28,13 @@ module.exports = {
                 addresses: req.body.addresses
             });
 
+            const accountNumber = await repositoryAccount.createAccount({
+                accountNumber : await repositoryAccount.generateAccountNumber(req),
+                customerId: customerId,
+                lastIp: await userAgentService.getIpCustomer(req),
+                lastUserAgent: await userAgentService.getUserAgent(req)         
+            });
+            console.log('2');
             return res.json({
                 sucess: true,
                 message: 'user registered'
@@ -47,7 +56,7 @@ module.exports = {
     async auth(req, res, next){
         try {
 
-            const customer = await repository.authenticate({
+            const customer = await repositoryCustomer.authenticate({
                 cpf: req.body.cpf,
                 password: md5(req.body.password + global.SALT)
             });
@@ -69,15 +78,14 @@ module.exports = {
                     data:{
                         cpf: customer.cpf,
                         name: customer.name,
-                        isAdmin: customer.isAdmin
+                        isAdmin: customer.isAdmin,
+                        customerId: customer._id
                     }
                 });
             }
 
         } catch (error) {
             
-
-
         }
     },
 

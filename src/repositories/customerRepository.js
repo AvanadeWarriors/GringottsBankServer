@@ -4,7 +4,8 @@ const CustomerModel = mongoose.model('Customer');
 
 exports.create = async(data) => {
     var customer = new CustomerModel(data);
-    await customer.save();
+    const customerId = await customer.save();
+    return customerId._id;
 }
 
 exports.authenticate = async(data) => {

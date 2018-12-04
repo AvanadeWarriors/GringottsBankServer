@@ -10,14 +10,14 @@ const AccountSchema = new mongoose.Schema({
         index: true,
         unique: true
     },
-    costumerId: {
+    customerId: {
         type: ObjectId,
         ref: 'Custumer',
         required: true
     },
     balance: {
         type: Number,
-        default: 0.01,
+        default: 0.00,
         required: true
     },
     enabled: {
