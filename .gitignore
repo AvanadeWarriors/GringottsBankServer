@@ -19,4 +19,4 @@
 .env.production.local
 
 npm-debug.log*
-package-lock.lock
+package-lock.json
