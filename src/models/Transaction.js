@@ -9,15 +9,15 @@ const TransactionSchema = new mongoose.Schema({
         enum: ['deposit','transfer','withdraw','debit'],
         required: true
     },
-    customerId: {
+    accountId: {
         type: ObjectId,
-        ref: 'Custumer',
+        ref: 'Account',
         index: true,
         required: true
     },
-    targetCustomerId:{
+    interactedAccountId:{
         type: ObjectId,
-        ref: 'Custumer',
+        ref: 'Account',
         index: true,
         required: true
     },

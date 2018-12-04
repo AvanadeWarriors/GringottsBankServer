@@ -3,5 +3,5 @@ const TransactionModel = mongoose.model('Transaction');
 
 exports.create = async(data) => {
     var transaction = new TransactionModel(data);
-    await transactions.save();
+    await transaction.save();
 }

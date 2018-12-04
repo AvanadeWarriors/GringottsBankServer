@@ -13,6 +13,11 @@ exports.getById = async (id) => {
     return res;
 }
 
+exports.getByAccountNumber = async (number) => {
+    const res = await AccountModel.findOne({"accountNumber": number});
+    return res;
+}
+
 exports.generateAccountNumber = async () => {
     const lastAccountNumber = await AccountModel.findOne({},{}, {sort: {'accountNumber': -1}});
     const nenewAccountNumber = undefined;
@@ -26,12 +31,12 @@ exports.generateAccountNumber = async () => {
     return newAccountNumber;
 }
 
-exports.updateBalance = async(id, amount, agent, ip) => {
-    const res = await AccountModel.findById(id);
+exports.updateBalance = async(number, amount, agent, ip) => {
+    let res = await AccountModel.findOne({accountNumber: number});
     res.balance += amount;
 
-    res = await AccountModel.update(
-        { _id: id }, 
+    res = await AccountModel.updateOne(
+        { accountNumber: number }, 
         { $set: 
             {
                 balance: res.balance, 

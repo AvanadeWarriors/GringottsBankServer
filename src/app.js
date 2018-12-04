@@ -48,6 +48,7 @@ app.use(function (req, res, next) {
 //carrega os models
 const AccountModel = require('./models/Account');
 const CustomerModel = require('./models/Customer');
+const TransactionModel = require('./models/Transaction');
 
 //carregar as rotas
 const indexRoute = require('./routes');
