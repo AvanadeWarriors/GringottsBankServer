@@ -20,7 +20,6 @@ module.exports = {
             if (accountA != null && accountB != null) {
                 //Deposito
                 if (req.body.transactionType == 0) {
-                    console.log('entrou');
                     let newBalance = accountA.balance += req.body.amount;
 
                     let transaction = {
@@ -33,7 +32,6 @@ module.exports = {
                         userAgent: userAgentService.getUserAgent(req),
                         description: ("Deposito por envelope")
                     };
-                    console.log(transaction);
                     await transactioRepository.create(transaction);
 
                     await accountRepository.updateBalance(accountA.accountNumber, req.body.amount, userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
@@ -94,16 +92,17 @@ module.exports = {
                     });
                     await accountRepository.updateBalance(accountA.accountNumber, (req.body.amount * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 }
-
                 return res.json({
                     sucess: true,
                     message: 'transaction sucessfull'
                 });
-
             }
 
         } catch (e) {
-            console.log(e);
+            return res.json({
+                sucess: false,
+                message: e
+            });
         }
     }
 }
