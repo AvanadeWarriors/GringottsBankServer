@@ -8,10 +8,6 @@ const Validation = require('../validators/fluent-validator'); //Valida o conteud
 
 module.exports = {
 
-    async index(req, res, next) {
-
-    },
-
     // async é vida hahaha
     async store(req, res, next) {
         try {
@@ -21,10 +17,10 @@ module.exports = {
                 //Deposito
                 if (req.body.transactionType == 0) {
                     let newBalance = accountA.balance += req.body.amount;
-
                     let transaction = {
                         type: "deposit",
                         accountId: accountA._id,
+                        accountNumber: req.body.accountNumber,
                         interactedAccountId: accountA._id,
                         postBalance: newBalance,
                         amount: req.body.amount,
@@ -42,6 +38,7 @@ module.exports = {
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountA._id,
+                        accountNumber: req.body.accountNumber,
                         interactedAccountId: accountB._id,
                         postBalance: postBalanceA,
                         amount: (req.body.amount * -1),
@@ -52,11 +49,12 @@ module.exports = {
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountB._id,
+                        accountNumber: req.body.targetAccountNumber,
                         interactedAccountId: accountA._id,
                         postBalance: postBalanceB,
                         amount: (req.body.amount),
                         ip: userAgentService.getIpCustomer(req),
-                        userAgentService: userAgentService.getUserAgent(req),
+                        userAgent: userAgentService.getUserAgent(req),
                         description: ("Transferencia Bancaria: Recebimento")
                     });
                     await accountRepository.updateBalance(accountA.accountNumber, (req.body.amount * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
@@ -68,6 +66,7 @@ module.exports = {
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountA._id,
+                        accountNumber: req.body.accountNumber,
                         interactedAccountId: accountA._id,
                         postBalance: postBalanceA,
                         amount: (req.body.amount * -1),
@@ -83,6 +82,7 @@ module.exports = {
                     await transactioRepository.create({
                         type: "debt",
                         accountId: accountA._id,
+                        accountNumber: accountA.accountNumber,
                         interactedAccountId: accountA._id,
                         postBalance: postBalanceA,
                         amount: (req.body.amount * -1),

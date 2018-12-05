@@ -1,4 +1,5 @@
 'user strict'
+
 /* Estes metodos ficarão disponiveis para todas as requisições,
 podemos chamalos de middlewares. Eu consigo realizar a identificação do token por exemplo em cada requisição feita*/
 const jwt = require('jsonwebtoken');

@@ -1,15 +1,25 @@
 const mongoose= require('mongoose');
 const AccountModel = mongoose.model('Account');
+const TransactionModel = mongoose.model('Transaction');
 
 exports.createAccount = async (data) => {
     var account = new AccountModel(data);
     const accountNumber = await account.save();
-    console.log('sa');
+
     return accountNumber;
 }
 
 exports.getById = async (id) => {
-    const res = await AccountModel.findOne({"customerId":id},{ "_id": 0, "balance": 1, "accountNumber": 1, "contacts": 1});
+    const res = await AccountModel.findOne({
+        "customerId":id
+    },
+    { 
+        "_id": 0, 
+        "balance": 1, 
+        "accountNumber": 1, 
+        "contacts": 1
+    });
+
     return res;
 }
 
@@ -26,7 +36,6 @@ exports.generateAccountNumber = async () => {
     }else{
         newAccountNumber = lastAccountNumber.accountNumber + 1;
     }  
-    console.log(newAccountNumber);
 
     return newAccountNumber;
 }
@@ -46,5 +55,82 @@ exports.updateBalance = async(number, amount, agent, ip) => {
         }
     );
     
+    return res;
+}
+
+exports.getStatement = async (accountNumber, filter) => {
+
+    const res = await TransactionModel.find({
+        "accountNumber" : accountNumber
+    },
+    { 
+        "postBalance" : 1, 
+        "amount" : 1, 
+        "description" : 1, 
+        "type" : 1, 
+        "accountNumber" : 1, 
+        "transactionTime" : 1
+    })
+    .sort({
+        "transactionTime" : -1
+    })
+    .limit(filter);
+
+    return res;
+}
+//5 * 24 * 
+exports.getStatementInput = async (accountNumber, filter) => {
+    
+    const res = await TransactionModel.find({
+        "accountNumber" : accountNumber,
+        "amount" : {
+            "$gt" : 0.0
+        },
+    },
+    { 
+        "postBalance" : 1, 
+        "amount" : 1, 
+        "description" : 1, 
+        "type" : 1, 
+        "accountNumber" : 1, 
+        "transactionTime" : 1
+    })
+    .sort({
+        "transactionTime" : -1
+    })
+    .limit(filter);
+
+    return res;
+}
+
+exports.getStatementOutput = async (accountNumber, filter) => {
+    
+    const res = await TransactionModel.find({
+        "accountNumber" : accountNumber,
+        "amount" : {
+            "$lt" : 0.0
+        }
+        
+    },
+    { 
+        "postBalance" : 1, 
+        "amount" : 1, 
+        "description" : 1, 
+        "type" : 1, 
+        "accountNumber" : 1, 
+        "transactionTime" : 1
+    })
+    .sort({
+        "transactionTime" : -1
+    })
+    .limit(filter);
+
+    return res;
+}
+
+exports.getStatementFuture = async (accountNumber, filter) => {
+    
+    const res = await TransactionModel.find({},{}).sort({}).limit();
+
     return res;
 }

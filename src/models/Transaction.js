@@ -2,11 +2,18 @@
 
 const mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var ObjectId2 = mongoose.Schema.Types.ObjectId;
 
 const TransactionSchema = new mongoose.Schema({
 	type: {
 		type: String,
         enum: ['deposit','transfer','withdraw','debt'],
+        required: true
+    },
+    accountNumber: {
+        type: Number,
+        ref: 'Account',
+        index: true,
         required: true
     },
     accountId: {
@@ -16,7 +23,7 @@ const TransactionSchema = new mongoose.Schema({
         required: true
     },
     interactedAccountId:{
-        type: ObjectId,
+        type: ObjectId2,
         ref: 'Account',
         index: true,
         required: true
