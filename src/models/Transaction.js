@@ -6,7 +6,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 const TransactionSchema = new mongoose.Schema({
 	type: {
 		type: String,
-        enum: ['deposit','transfer','withdraw','debit'],
+        enum: ['deposit','transfer','withdraw','debt'],
         required: true
     },
     accountId: {
