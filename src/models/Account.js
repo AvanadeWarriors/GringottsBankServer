@@ -12,7 +12,7 @@ const AccountSchema = new mongoose.Schema({
     },
     customerId: {
         type: ObjectId,
-        ref: 'Custumer',
+        ref: 'Customer',
         required: true
     },
     balance: {
