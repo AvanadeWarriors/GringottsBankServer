@@ -4,7 +4,6 @@ const AccountModel = mongoose.model('Account');
 exports.createAccount = async (data) => {
     var account = new AccountModel(data);
     const accountNumber = await account.save();
-    console.log('sa');
     return accountNumber;
 }
 
@@ -26,8 +25,6 @@ exports.generateAccountNumber = async () => {
     }else{
         newAccountNumber = lastAccountNumber.accountNumber + 1;
     }  
-    console.log(newAccountNumber);
-
     return newAccountNumber;
 }
 
