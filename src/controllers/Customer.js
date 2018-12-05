@@ -70,7 +70,9 @@ module.exports = {
                 
                 const token = await authService.generateToken({
                     id: customer._id,
-                    cpf: customer.cpf
+                    cpf: customer.cpf,
+                    isAdmin: customer.isAdmin
+
                 });
 
                 res.status(201).json({

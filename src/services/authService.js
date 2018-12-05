@@ -35,13 +35,15 @@ exports.authorize = (req, res, next) => {
     }
 }
 
-exports.isAdmin = (req, res, next) => {
-    let isAdmin =  req.body.isAdmin;
-
-    if (!isAdmin){
+exports.isAdmin = async (req, res, next) => {
+    let token =  req.headers['x-access-token'];
+    let data = await jwt.verify(token, global.SALT);
+    
+    console.log("Passei por aqui")
+    if (!data.isAdmin){
         res.status(401).json({
             sucess: false,
-            message: 'unauthorized access'
+            message: 'unauthorized access, roles admin required'
         });
     }else{
         next();

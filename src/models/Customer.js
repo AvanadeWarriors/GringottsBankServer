@@ -53,6 +53,9 @@ const CustomerSchema = new mongoose.Schema({
         neighborhood: {
             type: String
         },
+        cep: {
+            type: Number
+        },
         city: {
             type: String
         },
