@@ -4,7 +4,7 @@ podemos chamalos de middlewares. Eu consigo realizar a identificação do token 
 const jwt = require('jsonwebtoken');
 
 exports.generateToken = async (data) => {
-    return jwt.sign(data, global.SALT, {expiresIn: '5m'});
+    return jwt.sign(data, global.SALT, {expiresIn: '3h'});
 }
 
 exports.decodeToken = async (token) => {
