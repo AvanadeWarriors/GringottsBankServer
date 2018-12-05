@@ -34,3 +34,16 @@ exports.authorize = (req, res, next) => {
         })
     }
 }
+
+exports.isAdmin = (req, res, next) => {
+    let isAdmin =  req.body.isAdmin;
+
+    if (!isAdmin){
+        res.status(401).json({
+            sucess: false,
+            message: 'unauthorized access'
+        });
+    }else{
+        next();
+    }
+}

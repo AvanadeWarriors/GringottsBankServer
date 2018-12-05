@@ -13,6 +13,5 @@ router.post('/transaction', authService.authorize, TransactionController.store);
 router.get('/statement/:filter', authService.authorize, AccountController.statement);
 router.get('/statement/input/:filter', authService.authorize, AccountController.statementInput);
 router.get('/statement/output/:filter', authService.authorize, AccountController.statementOutput);
-router.get('/statement/future/:filter', authService.authorize, AccountController.statementFuture);
 
 module.exports = router;
