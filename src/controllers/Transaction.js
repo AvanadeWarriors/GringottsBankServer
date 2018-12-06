@@ -16,7 +16,7 @@ module.exports = {
             if (accountA != null && accountB != null) {
                 //Deposito
                 if (req.body.transactionType == 0) {
-                    let newBalance = accountA.balance += req.body.amount;
+                    let newBalance = accountA.balance + parseFloat(req.body.amount);
                     let transaction = {
                         type: "deposit",
                         accountId: accountA._id,
@@ -33,8 +33,8 @@ module.exports = {
                     await accountRepository.updateBalance(accountA.accountNumber, req.body.amount, userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 //Transferencia
                 } else if (req.body.transactionType == 1) {
-                    let postBalanceA = accountA.balance += (req.body.amount * -1);
-                    let postBalanceB = accountB.balance += (req.body.amount);
+                    let postBalanceA = accountA.balance + (parseFloat(req.body.amount) * -1);
+                    let postBalanceB = accountB.balance + (parseFloat(req.body.amount));
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountA._id,
@@ -62,7 +62,7 @@ module.exports = {
                 }
                 // Saque
                 else if (req.body.transactionType == 3) {
-                    let postBalanceA = accountA.balance += (req.body.amount * -1);
+                    let postBalanceA = accountA.balance + (parseFloat(req.body.amount) * -1);
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountA._id,
@@ -78,7 +78,7 @@ module.exports = {
                 }
                 // Saque
                 else if (req.body.transactionType == 4) {
-                    let postBalanceA = accountA.balance += (req.body.amount * -1);
+                    let postBalanceA = accountA.balance + (parseFloat(req.body.amount) * -1);
                     await transactioRepository.create({
                         type: "debt",
                         accountId: accountA._id,
