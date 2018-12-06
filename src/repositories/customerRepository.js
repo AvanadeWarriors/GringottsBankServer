@@ -24,3 +24,4 @@ exports.getById = async(id) => {
     const res = await CustomerModel.findById(id);
     return res;
 }
+

@@ -7,7 +7,7 @@ const authService = require('../services/authService');
 const AccountController = require('../controllers/Account');
 const TransactionController = require('../controllers/Transaction');
 
-router.get('/:id', authService.authorize, AccountController.index);
+router.get('/:accountNumber', authService.authorize, AccountController.index);
 router.post('/transaction', authService.authorize, TransactionController.store);
 router.get('/statement/:filter', authService.authorize, AccountController.statement);
 router.get('/statement/input/:filter', authService.authorize, AccountController.statementInput);

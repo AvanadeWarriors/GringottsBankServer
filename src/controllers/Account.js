@@ -1,6 +1,7 @@
 'use strict'
 
-const repository = require('../repositories/accountRepository');
+const repositoryCustomer = require('../repositories/customerRepository');
+const repositoryAccount = require('../repositories/accountRepository');
 //Valida o conteudo antes de chegar no mongoose, importante futuramente
 const Validation = require('../validators/fluent-validator'); 
 
@@ -10,8 +11,28 @@ module.exports = {
 
     // Dados sobre o cliente e sua conta
     async index(req, res, next){
-        let account = await repository.getById(req.params.id);
-        return res.json(account);
+        let account = await repositoryAccount.getByAccountNumber(req.params.accountNumber);
+
+        if(!account){
+            res.status(500).json({
+                success: false,
+                code: '',
+                message: 'request failed',
+             });
+        }else{
+            let customer = await repositoryCustomer.getById(account.customerId);
+
+            return res.status(200).json({
+                sucess: true,
+                accountData: {
+                    accountNumber: account.accountNumber,
+                    name: customer.name,
+                    cpf: customer.cpf
+                }
+            });
+
+        }
+        
     },
 
     // Perm
@@ -41,7 +62,7 @@ module.exports = {
 
         try {
 
-            let accountStatement = await repository.getStatement(req.body.accoutNumber, parseInt(req.params.filter));
+            let accountStatement = await repositoryAccount.getStatement(req.body.accoutNumber, parseInt(req.params.filter));
             if(accountStatement.length !== 0){
                 return res.status(200).json({
                     sucess: true,
@@ -66,7 +87,7 @@ module.exports = {
     async statementInput(req, res, next){
 
         try {
-            let accountStatementInput = await repository.getStatementInput(req.body.accoutNumber, parseInt(req.params.filter));
+            let accountStatementInput = await repositoryAccount.getStatementInput(req.body.accoutNumber, parseInt(req.params.filter));
             if(accountStatementInput.length !== 0){
                 return res.status(200).json({
                     sucess: true,
@@ -91,7 +112,7 @@ module.exports = {
 
         try {
             
-            let accountStatementOutput = await repository.getStatementOutput(req.body.accoutNumber, parseInt(req.params.filter));
+            let accountStatementOutput = await repositoryAccount.getStatementOutput(req.body.accoutNumber, parseInt(req.params.filter));
             if(accountStatementOutput.length !== 0){
                 return res.status(200).json({
                     sucess: true,
