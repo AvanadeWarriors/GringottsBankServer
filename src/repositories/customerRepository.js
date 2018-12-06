@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 const CustomerModel = mongoose.model('Customer');
-const AccountModel = mongoose.model('Account');
 
 exports.create = async(data) => {
     var customer = new CustomerModel(data);
@@ -11,12 +10,14 @@ exports.create = async(data) => {
 }
 
 exports.authenticate = async(data) => {
+
     const res = await CustomerModel.findOne({
         cpf: data.cpf,
         password: data.password
     });
 
     return res;
+    
 }
 
 exports.getById = async(id) => {

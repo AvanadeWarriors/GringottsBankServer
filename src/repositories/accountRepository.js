@@ -14,13 +14,18 @@ exports.getById = async (id) => {
         "customerId":id
     },
     { 
-        "_id": 0, 
         "balance": 1, 
         "accountNumber": 1, 
         "contacts": 1
     });
 
-    return res;
+    if(res != null){
+        return res;
+    }else{
+        return res = 'accountNumber not exist'
+    }
+
+    
 }
 
 exports.getByAccountNumber = async (number) => {

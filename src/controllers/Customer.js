@@ -34,7 +34,7 @@ module.exports = {
                 lastIp: await userAgentService.getIpCustomer(req),
                 lastUserAgent: await userAgentService.getUserAgent(req)         
             });
-            console.log('2');
+
             return res.json({
                 sucess: true,
                 message: 'user registered'
@@ -68,15 +68,13 @@ module.exports = {
                 })
             }else{
 
-                const accountData = await repositoryCustomer.authenticate({
-                    cpf: req.body.cpf,
-                    password: md5(req.body.password + global.SALT)
-                });
-                
+                const accountData = await repositoryAccount.getById(customer._id)
+
                 const token = await authService.generateToken({
                     id: customer._id,
                     cpf: customer.cpf,
-                    isAdmin: customer.isAdmin
+                    isAdmin: customer.isAdmin,
+                    accountNumber: accountData.accountNumber
                 });
 
                 res.status(201).json({
@@ -85,18 +83,18 @@ module.exports = {
                         cpf: customer.cpf,
                         name: customer.name,
                         isAdmin: customer.isAdmin,
-                        customerId: customer._id
+                        customerId: customer._id,
+                        accountNumber: accountData.accountNumber
                     }
                 });
             }
 
         } catch (error) {
-            
+            res.status(500).json({
+                success: 'false',
+                message: error
+            })
         }
     },
-
-    async update(req, res, next){
-
-    }
 
 }
