@@ -1,8 +1,7 @@
 'use sctrict'
 
 const mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
-var ObjectId2 = mongoose.Schema.Types.ObjectId;
+let Schema = mongoose.Schema.Types;
 
 const TransactionSchema = new mongoose.Schema({
 	type: {
@@ -17,13 +16,13 @@ const TransactionSchema = new mongoose.Schema({
         required: true
     },
     accountId: {
-        type: ObjectId,
+        type: Schema.ObjectId,
         ref: 'Account',
         index: true,
         required: true
     },
     interactedAccountId:{
-        type: ObjectId2,
+        type: Schema.ObjectId,
         ref: 'Account',
         index: true,
         required: true

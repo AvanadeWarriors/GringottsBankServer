@@ -126,10 +126,3 @@ exports.getStatementOutput = async (accountNumber, filter) => {
 
     return res;
 }
-
-exports.getStatementFuture = async (accountNumber, filter) => {
-    
-    const res = await TransactionModel.find({},{}).sort({}).limit();
-
-    return res;
-}

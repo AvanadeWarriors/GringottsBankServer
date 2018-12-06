@@ -1,7 +1,7 @@
 'use sctrict'
 
-const mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const mongoose = require('mongoose')
+let Schema = mongoose.Schema.Types;
 
 const AccountSchema = new mongoose.Schema({
     accountNumber: {
@@ -11,7 +11,7 @@ const AccountSchema = new mongoose.Schema({
         unique: true
     },
     customerId: {
-        type: ObjectId,
+        type: Schema.ObjectId,
         ref: 'Customer',
         required: true
     },

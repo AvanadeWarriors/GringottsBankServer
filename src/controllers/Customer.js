@@ -67,12 +67,16 @@ module.exports = {
                     message: 'username and/or password invalid'
                 })
             }else{
+
+                const accountData = await repositoryCustomer.authenticate({
+                    cpf: req.body.cpf,
+                    password: md5(req.body.password + global.SALT)
+                });
                 
                 const token = await authService.generateToken({
                     id: customer._id,
                     cpf: customer.cpf,
                     isAdmin: customer.isAdmin
-
                 });
 
                 res.status(201).json({

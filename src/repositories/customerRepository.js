@@ -1,6 +1,8 @@
 'use strict';
+
 const mongoose = require('mongoose');
 const CustomerModel = mongoose.model('Customer');
+const AccountModel = mongoose.model('Account');
 
 exports.create = async(data) => {
     var customer = new CustomerModel(data);
@@ -13,6 +15,7 @@ exports.authenticate = async(data) => {
         cpf: data.cpf,
         password: data.password
     });
+
     return res;
 }
 

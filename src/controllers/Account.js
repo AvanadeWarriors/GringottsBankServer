@@ -112,16 +112,4 @@ module.exports = {
 
     },
 
-    async statementFuture(req, res, next){
-        try{
-            res.status(200).json({
-                sucess: 'false',
-                message: "you do not have any releases"
-            })
-        }catch (error) {
-            res.json(error);
-        }
-
-    }
-
 }
