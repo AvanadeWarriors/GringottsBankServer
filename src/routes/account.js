@@ -12,5 +12,7 @@ router.post('/transaction', authService.authorize, TransactionController.store);
 router.get('/statement/:filter', authService.authorize, AccountController.statement);
 router.get('/statement/input/:filter', authService.authorize, AccountController.statementInput);
 router.get('/statement/output/:filter', authService.authorize, AccountController.statementOutput);
+router.post('/contacts', authService.authorize, AccountController.storeContacts);
+router.get('/contacts', authService.authorize, AccountController.getContacts);
 
 module.exports = router;

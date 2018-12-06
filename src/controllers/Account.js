@@ -133,4 +133,43 @@ module.exports = {
 
     },
 
+    async storeContacts(req, res, next){
+
+        try {
+            
+            let account = await repositoryAccount.accountStoreContacts(req.body);
+
+            if(!account){
+                res.status(500).json({
+                    success: false,
+                    code: '',
+                    message: 'request failed',
+                    data: error
+                });
+            }else{
+                return res.status(200).json({
+                    sucess: true,
+                    account
+                });
+            }
+
+        } catch (error) {
+
+            res.status(500).json({
+                success: false,
+                code: '',
+                message: 'request failed',
+                data: error
+            });
+
+        }
+
+    },
+
+    async getContacts(req, res, next){
+        console.log(req.body)
+        
+
+    },
+
 }

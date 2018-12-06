@@ -25,7 +25,6 @@ exports.getById = async (id) => {
         return res = 'accountNumber not exist'
     }
 
-    
 }
 
 exports.getByAccountNumber = async (number) => {
@@ -130,4 +129,14 @@ exports.getStatementOutput = async (accountNumber, filter) => {
     .limit(filter);
 
     return res;
+}
+
+exports.getAccountContacts = async (accountNumber) => {
+
+    let account = await AccountModel.findOne({
+        accountNumber: accountNumber
+    });
+
+    
+    return account;
 }

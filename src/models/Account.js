@@ -46,12 +46,14 @@ const AccountSchema = new mongoose.Schema({
             type: String,
             trim: true
         },
-        accountNumber:{
+        accountNumberContact:{
             type: Number,
-            index: true
+            index: true,
+            unique: true
         },
-        cpf:{
+        cpfContact:{
             type: Number,
+            unique: true
         }
     }]
 });
