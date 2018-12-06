@@ -5,8 +5,6 @@ const repositoryAccount = require('../repositories/accountRepository');
 //Valida o conteudo antes de chegar no mongoose, importante futuramente
 const Validation = require('../validators/fluent-validator'); 
 
-
-
 module.exports = {
 
     // Dados sobre o cliente e sua conta
@@ -14,7 +12,7 @@ module.exports = {
         let account = await repositoryAccount.getByAccountNumber(req.params.accountNumber);
 
         if(!account){
-            res.status(500).json({
+            res.status(404).json({
                 success: false,
                 code: '',
                 message: 'request failed',
@@ -41,7 +39,7 @@ module.exports = {
 
             let account = new AccountModel(req.body);
             await account.save();
-            return res.json({
+            return res.status(201).json({
                 sucess: true,
                 message: 'created account'
             });
@@ -69,7 +67,7 @@ module.exports = {
                     accountStatement
                 });
             }else{
-                return res.status(200).json({
+                return res.status(404).json({
                     sucess: false,
                     message: 'you do not have any releases'
                 }); 
@@ -78,7 +76,7 @@ module.exports = {
 
         } catch (error) {
 
-            res.json(error)
+            res.status(500).json(error)
 
         }
         
@@ -94,7 +92,7 @@ module.exports = {
                     accountStatementInput
                 });
             }else{
-                return res.status(200).json({
+                return res.status(404).json({
                     sucess: false,
                     message: 'you do not have any releases'
                 }); 
@@ -102,7 +100,7 @@ module.exports = {
 
         } catch (error) {
 
-            res.json(error);
+            res.status(500).json(error);
 
         }
 
@@ -119,7 +117,7 @@ module.exports = {
                     accountStatementOutput
                 });
             }else {
-                return res.status(200).json({
+                return res.status(404).json({
                     sucess: false,
                     message: 'you do not have any releases'
                 }); 
@@ -127,7 +125,7 @@ module.exports = {
 
         } catch (error) {
 
-            res.json(error);
+            res.status(500).json(error);
 
         }
 
@@ -140,11 +138,10 @@ module.exports = {
             let account = await repositoryAccount.accountStoreContacts(req.body);
 
             if(!account){
-                res.status(500).json({
+                res.status(404).json({
                     success: false,
                     code: '',
                     message: 'request failed',
-                    data: error
                 });
             }else{
                 return res.status(200).json({
@@ -167,15 +164,13 @@ module.exports = {
     },
 
     async getContacts(req, res, next){
-        
-        
 
         try {
             
             let accountData = await repositoryAccount.getAccountContacts(req.params.accountNumber);
 
             if(!accountData){
-                res.status(500).json({
+                res.status(404).json({
                     success: false,
                     code: '',
                     message: 'request failed',

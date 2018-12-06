@@ -92,7 +92,7 @@ module.exports = {
                     });
                     await accountRepository.updateBalance(accountA.accountNumber, (req.body.amount * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 }
-                return res.json({
+                return res.status(201).json({
                     sucess: true,
                     message: 'transaction sucessfull',
                     data: req.body
@@ -100,7 +100,7 @@ module.exports = {
             }
 
         } catch (e) {
-            return res.json({
+            return res.status(500).json({
                 sucess: false,
                 message: e
             });

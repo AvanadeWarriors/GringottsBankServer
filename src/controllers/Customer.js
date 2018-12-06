@@ -9,10 +9,6 @@ const authService = require('../services/authService')
 
 module.exports = {
 
-    async index(req, res, next){
-        
-    },
-
     // async é vida hahaha
     async store(req, res, next){
         try {
@@ -35,7 +31,7 @@ module.exports = {
                 lastUserAgent: await userAgentService.getUserAgent(req)         
             });
 
-            return res.json({
+            return res.status(201).json({
                 sucess: true,
                 message: 'user registered',
                 accountNumber: accountNumber.accountNumber,
@@ -44,7 +40,7 @@ module.exports = {
 
         } catch (e) {
 
-            res.status(500).json({
+            res.status(400).json({
                     success: false,
                     code: '',
                     message: 'request failed',
@@ -79,7 +75,7 @@ module.exports = {
                     accountNumber: accountData.accountNumber
                 });
 
-                res.status(201).json({
+                res.status(200).json({
                     token: token,
                     data:{
                         cpf: customer.cpf,
