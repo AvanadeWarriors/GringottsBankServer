@@ -37,15 +37,21 @@ exports.authorize = (req, res, next) => {
 
 exports.isAdmin = async (req, res, next) => {
     let token =  req.headers['x-access-token'];
-    let data = await jwt.verify(token, global.SALT);
-    
-    console.log("Passei por aqui")
-    if (!data.isAdmin){
-        res.status(401).json({
-            sucess: false,
-            message: 'unauthorized access, roles admin required'
-        });
-    }else{
-        next();
-    }
+    jwt.verify(token, global.SALT,function(error, decode){
+        if (error){
+            res.status(401).json({
+                sucess: false,
+                message: 'unauthorized access, invalid token'
+            });
+        }else{
+            if (!decode.isAdmin){
+                res.status(401).json({
+                    sucess: false,
+                    message: 'unauthorized access, roles admin required'
+                });
+            }else{
+                next();
+            }
+        }
+    })
 }

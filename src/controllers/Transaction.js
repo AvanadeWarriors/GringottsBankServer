@@ -94,7 +94,8 @@ module.exports = {
                 }
                 return res.json({
                     sucess: true,
-                    message: 'transaction sucessfull'
+                    message: 'transaction sucessfull',
+                    data: req.body
                 });
             }
 

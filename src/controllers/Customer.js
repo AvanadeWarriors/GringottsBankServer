@@ -37,7 +37,9 @@ module.exports = {
 
             return res.json({
                 sucess: true,
-                message: 'user registered'
+                message: 'user registered',
+                accountNumber: accountNumber.accountNumber,
+                data: req.body
             });
 
         } catch (e) {
