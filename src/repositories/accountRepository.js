@@ -137,6 +137,5 @@ exports.getAccountContacts = async (accountNumber) => {
         accountNumber: accountNumber
     });
 
-    
     return account;
 }

@@ -118,7 +118,7 @@ module.exports = {
                     sucess: true,
                     accountStatementOutput
                 });
-            }else{
+            }else {
                 return res.status(200).json({
                     sucess: false,
                     message: 'you do not have any releases'
@@ -167,9 +167,37 @@ module.exports = {
     },
 
     async getContacts(req, res, next){
-        console.log(req.body)
+        
         
 
+        try {
+            
+            let accountData = await repositoryAccount.getAccountContacts(req.params.accountNumber);
+
+            if(!accountData){
+                res.status(500).json({
+                    success: false,
+                    code: '',
+                    message: 'request failed',
+                    data: error
+                });
+            }else{
+                return res.status(200).json({
+                    sucess: true,
+                    accoutContactsData: accountData.contacts
+                });
+            }
+
+        } catch (error) {
+
+            res.status(500).json({
+                success: false,
+                code: '',
+                message: 'request failed',
+                data: error
+            });
+
+        }
     },
 
 }

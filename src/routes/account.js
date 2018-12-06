@@ -13,6 +13,6 @@ router.get('/statement/:filter', authService.authorize, AccountController.statem
 router.get('/statement/input/:filter', authService.authorize, AccountController.statementInput);
 router.get('/statement/output/:filter', authService.authorize, AccountController.statementOutput);
 router.post('/contacts', authService.authorize, AccountController.storeContacts);
-router.get('/contacts', authService.authorize, AccountController.getContacts);
+router.get('/contacts/:accountNumber', authService.authorize, AccountController.getContacts);
 
 module.exports = router;
