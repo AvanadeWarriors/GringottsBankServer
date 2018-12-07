@@ -80,7 +80,7 @@ module.exports = {
 
         try {
 
-            let accountStatement = await repositoryAccount.getStatement(req.body.accoutNumber, parseInt(req.params.filter));
+            let accountStatement = await repositoryAccount.getStatement(req.body.accountNumber, parseInt(req.params.filter));
             if(accountStatement.length !== 0){
                 return res.status(200).json({
                     sucess: true,
@@ -105,7 +105,7 @@ module.exports = {
     async statementInput(req, res, next){
 
         try {
-            let accountStatementInput = await repositoryAccount.getStatementInput(req.body.accoutNumber, parseInt(req.params.filter));
+            let accountStatementInput = await repositoryAccount.getStatementInput(req.body.acconutNumber, parseInt(req.params.filter));
             if(accountStatementInput.length !== 0){
                 return res.status(200).json({
                     sucess: true,
@@ -130,7 +130,7 @@ module.exports = {
 
         try {
             
-            let accountStatementOutput = await repositoryAccount.getStatementOutput(req.body.accoutNumber, parseInt(req.params.filter));
+            let accountStatementOutput = await repositoryAccount.getStatementOutput(req.body.accountNumber, parseInt(req.params.filter));
             if(accountStatementOutput.length !== 0){
                 return res.status(200).json({
                     sucess: true,
