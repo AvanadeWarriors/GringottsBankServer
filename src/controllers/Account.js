@@ -33,6 +33,26 @@ module.exports = {
         
     },
 
+        // Dados sobre o cliente e sua conta
+        async balance(req, res, next){
+            let account = await repositoryAccount.getByAccountNumber(req.params.accountNumber);
+    
+            if(!account){
+                res.status(404).json({
+                    success: false,
+                    code: '',
+                    message: 'request failed',
+                 });
+            }else{    
+                return res.status(200).json({
+                    sucess: true,
+                    accountBalance: parseFloat(account.balance)
+                });
+    
+            }
+            
+        },
+
     // Perm
     async store(req, res, next){
         try {
