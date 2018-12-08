@@ -105,7 +105,7 @@ module.exports = {
     async statementInput(req, res, next){
 
         try {
-            let accountStatementInput = await repositoryAccount.getStatementInput(req.params.acconutNumber, parseInt(req.params.filter));
+            let accountStatementInput = await repositoryAccount.getStatementInput(req.params.accountNumber, parseInt(req.params.filter));
             if(accountStatementInput.length !== 0){
                 return res.status(200).json({
                     sucess: true,
