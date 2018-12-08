@@ -55,3 +55,32 @@ exports.isAdmin = async (req, res, next) => {
         }
     })
 }
+
+exports.authorizeAccount = (req, res, next) => {
+    let token =  req.headers['x-access-token'];
+    
+    if (!token){
+        res.status(401).json({
+            sucess: false,
+            message: 'unauthorized access'
+        });
+    }else{
+        jwt.verify(token, global.SALT, function(error, decoded){
+            if (error){
+                res.status(401).json({
+                    sucess: false,
+                    message: 'unauthorized access, invalid token'
+                });
+            }else{
+                if (decoded.accountNumber !== parseInt(req.params.accountNumber)){
+                    res.status(401).json({
+                        sucess: false,
+                        message: 'unauthorized access, you do not have access to this account'
+                    });
+                }else{
+                    next();
+                }
+            }
+        })
+    }
+}

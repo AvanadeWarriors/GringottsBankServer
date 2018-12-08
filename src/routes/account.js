@@ -10,10 +10,10 @@ const TransactionController = require('../controllers/Transaction');
 router.get('/:accountNumber', authService.authorize, AccountController.index);
 router.get('/balance/:accountNumber', authService.authorize, AccountController.balance);
 router.post('/transaction', authService.authorize, TransactionController.store);
-router.get('/statement/:filter', authService.authorize, AccountController.statement);
-router.get('/statement/input/:filter', authService.authorize, AccountController.statementInput);
-router.get('/statement/output/:filter', authService.authorize, AccountController.statementOutput);
-router.post('/contacts', authService.authorize, AccountController.storeContacts);
-router.get('/contacts/:accountNumber', authService.authorize, AccountController.getContacts);
+router.get('/statement/:accountNumber/:filter', authService.authorizeAccount, AccountController.statement);
+router.get('/statement/input/:accountNumber/:filter', authService.authorizeAccount, AccountController.statementInput);
+router.get('/statement/output/:accountNumber/:filter', authService.authorizeAccount, AccountController.statementOutput);
+router.post('/contacts', authService.authorizeAccount, AccountController.storeContacts);
+router.get('/contacts/:accountNumber', authService.authorizeAccount, AccountController.getContacts);
 
 module.exports = router;
