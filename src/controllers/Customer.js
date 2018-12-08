@@ -25,7 +25,7 @@ module.exports = {
             });
 
             const accountNumber = await repositoryAccount.createAccount({
-                accountNumber : await repositoryAccount.generateAccountNumber(req),
+                accountNumber : await repositoryAccount.generateAccountNumber(),
                 customerId: customerId,
                 lastIp: await userAgentService.getIpCustomer(req),
                 lastUserAgent: await userAgentService.getUserAgent(req)         
