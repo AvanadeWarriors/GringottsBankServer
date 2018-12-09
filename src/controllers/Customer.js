@@ -2,7 +2,6 @@
 
 const repositoryCustomer = require('../repositories/customerRepository');
 const repositoryAccount = require('../repositories/accountRepository');
-const Validation = require('../validators/fluent-validator'); //Valida o conteudo antes de chegar no mongoose, importante futuramente
 const userAgentService = require('../services/userAgentService');
 const md5 = require('md5');
 const authService = require('../services/authService')

@@ -1,10 +1,8 @@
 'use strict'
 
-const repository = require('../repositories/customerRepository')
 const transactioRepository = require('../repositories/transactionRepository')
 const accountRepository = require('../repositories/accountRepository')
 const userAgentService = require('../services/userAgentService');
-const Validation = require('../validators/fluent-validator'); //Valida o conteudo antes de chegar no mongoose, importante futuramente
 
 module.exports = {
 

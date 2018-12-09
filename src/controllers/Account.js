@@ -2,8 +2,6 @@
 
 const repositoryCustomer = require('../repositories/customerRepository');
 const repositoryAccount = require('../repositories/accountRepository');
-//Valida o conteudo antes de chegar no mongoose, importante futuramente
-const Validation = require('../validators/fluent-validator'); 
 
 module.exports = {
 
