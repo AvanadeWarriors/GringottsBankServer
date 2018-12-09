@@ -6,7 +6,8 @@ module.exports = {
         exec_mode: "cluster"
     }],
     
-    connerctionString: 'mongodb://root:uEPi78UhRHBkYwH@ds023463.mlab.com:23463/gringottsdb'
+    connectionString: 'mongodb://root:uEPi78UhRHBkYwH@ds023463.mlab.com:23463/gringottsdb',
+    connectionStringTest: 'mongodb://root:uEPi78UhRHBkYwH@ds056288.mlab.com:56288/gringottsdb-test'
 }
 
 global.SALT = 'zFdG2pVRTHUaGlEMp58L';

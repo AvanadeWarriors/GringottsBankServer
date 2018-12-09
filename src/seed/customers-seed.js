@@ -2,10 +2,20 @@
 
 const mongoose = require('mongoose');
 const md5 = require('md5');
+const config = require('../../ecosystem.config');
 
 let Schema = mongoose.Schema.Types;
 
-mongoose.connect('mongodb://root:uEPi78UhRHBkYwH@ds023463.mlab.com:23463/gringottsdb', {
+let conn = config.connectionString;
+
+process.argv.forEach(function (val, index, array) {
+    if(val == '-test'){
+        conn = config.connectionStringTest;
+        console.log("seeding test db")
+    }
+});
+
+mongoose.connect(conn, {
     useNewUrlParser: true,
     useCreateIndex: true,
 });
@@ -118,12 +128,10 @@ const AccountSchema = new mongoose.Schema({
         },
         accountNumberContact:{
             type: Number,
-            index: true,
-            unique: true
+            index: true
         },
         cpfContact:{
             type: Number,
-            unique: true
         }
     }]
 });

@@ -4,9 +4,12 @@
   "description": "API GringottsBank",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon ./bin/server.js",
     "seeder": "node ./src/seed/customers-seed.js"
+  },
+  "jest":{
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,8 @@
     "mongoose-float": "^1.0.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.7"
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.7",
+    "supertest": "^3.3.0"
   }
 }

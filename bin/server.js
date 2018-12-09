@@ -1,6 +1,21 @@
 const app = require('../src/app');
 const debug = require('debug')('gringotts:server');
 const http = require('http');
+const mongoose = require('mongoose');
+const config = require('../ecosystem.config');
+const logger = require('mongo-morgan-ext');
+
+
+const db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', function() {
+  console.log('GringottsServerDB conected ...')
+});
+
+mongoose.connect(config.connectionStringTest, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+});
 
 //normalizePort -> Isso faz com que a porta seja uma definida nas variaveis de ambiente do SO. Se não houver 3000
 const port = normalizePort(process.env.PORT || '3000');
@@ -13,7 +28,11 @@ server.on('error', onError);
 server.on('listening', onListening);
 console.log(`Gringotts API available on http://localhost:${port}`);
 
-// Copiei os itens abaixo de um lugar, seria legal fazer de outra forma, pensar nisso depois.
+const skipfunction = function(req, res) {
+  return res.statusCode > 399;
+}
+
+app.use(logger(config.connectionString,"logs",skipfunction)); //In your express-application
 
 //Metodo usada para normalizar a porta
 function normalizePort(val) {
