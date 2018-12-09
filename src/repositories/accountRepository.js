@@ -131,6 +131,22 @@ exports.getStatementOutput = async (accountNumber, filter) => {
     return res;
 }
 
+exports.accountStoreContacts = async (data) => {
+    let account = await AccountModel.updateOne({
+        accountNumber: data.accountNumber
+    },{
+        $push: {
+            contacts: {
+                name: data.contactName,
+                accountNumberContact: data.accountNumberContact,
+                cpfContact: data.cpfContact
+            }
+        }
+    });
+
+    return account;
+}
+
 exports.getAccountContacts = async (accountNumber) => {
 
     let account = await AccountModel.findOne({

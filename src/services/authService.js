@@ -72,7 +72,7 @@ exports.authorizeAccount = (req, res, next) => {
                     message: 'unauthorized access, invalid token'
                 });
             }else{
-                if (decoded.accountNumber !== parseInt(req.params.accountNumber)){
+                if (decoded.accountNumber !== (parseInt(req.params.accountNumber) || parseInt(req.body.accountNumber))){
                     res.status(401).json({
                         sucess: false,
                         message: 'unauthorized access, you do not have access to this account'
