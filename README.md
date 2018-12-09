@@ -6,6 +6,10 @@ No diretório do projeto, para instalar as dependencias pasta executar.
 
 ### `npm install`
 
+Para executar o seeder, no diretório do projeto execute,
+
+### `npm run seeder`
+
 Agora para executar o projeto basta executar o seguinte comando.
 
 ### `npm start`
