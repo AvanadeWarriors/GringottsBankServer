@@ -28,7 +28,7 @@ module.exports = {
                     };
                     await transactioRepository.create(transaction);
 
-                    await accountRepository.updateBalance(accountA.accountNumber, req.body.amount, userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
+                    await accountRepository.updateBalance(accountA.accountNumber, parseFloat(req.body.amount), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 //Transferencia
                 } else if (req.body.transactionType == 1) {
                     let postBalanceA =  parseFloat(accountA.balance) + (parseFloat(req.body.amount) * -1);
@@ -55,8 +55,8 @@ module.exports = {
                         userAgent: userAgentService.getUserAgent(req),
                         description: ("Transferencia Bancaria: Recebimento")
                     });
-                    await accountRepository.updateBalance(accountA.accountNumber, (req.body.amount * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
-                    await accountRepository.updateBalance(accountB.accountNumber, (req.body.amount), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
+                    await accountRepository.updateBalance(accountA.accountNumber, (parseFloat(req.body.amount) * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
+                    await accountRepository.updateBalance(accountB.accountNumber, (parseFloat(req.body.amount)), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 }
                 // Saque
                 else if (req.body.transactionType == 3) {
@@ -72,7 +72,7 @@ module.exports = {
                         userAgent: userAgentService.getUserAgent(req),
                         description: ("Saque no caixa eletronico")
                     });
-                    await accountRepository.updateBalance(accountA.accountNumber, (req.body.amount * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
+                    await accountRepository.updateBalance(accountA.accountNumber, (parseFloat(req.body.amount) * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 }
                 // Saque
                 else if (req.body.transactionType == 4) {
@@ -88,7 +88,7 @@ module.exports = {
                         userAgent: userAgentService.getUserAgent(req),
                         description: ("Uso de cartão na função débito")
                     });
-                    await accountRepository.updateBalance(accountA.accountNumber, (req.body.amount * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
+                    await accountRepository.updateBalance(accountA.accountNumber, (parseFloat(req.body.amount) * -1), userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 }
                 return res.status(201).json({
                     sucess: true,

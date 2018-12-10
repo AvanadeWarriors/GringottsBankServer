@@ -12,7 +12,7 @@ db.once('open', function() {
   console.log('GringottsServerDB conected ...')
 });
 
-mongoose.connect(config.connectionStringTest, {
+mongoose.connect(config.connectionString, {
     useNewUrlParser: true,
     useCreateIndex: true,
 });

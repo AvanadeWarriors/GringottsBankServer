@@ -51,7 +51,7 @@ exports.updateBalance = async(number, amount, agent, ip) => {
         { accountNumber: number }, 
         { $set: 
             {
-                balance: res.balance, 
+                balance: parseFloat(res.balance), 
                 lastIp: ip, 
                 lastUserAgent: agent
             }
