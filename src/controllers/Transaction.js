@@ -14,14 +14,14 @@ module.exports = {
             if (accountA != null && accountB != null) {
                 //Deposito
                 if (req.body.transactionType == 0) {
-                    let newBalance = accountA.balance + parseFloat(req.body.amount);
+                    let newBalance = parseFloat(accountA.balance) + parseFloat(req.body.amount);
                     let transaction = {
                         type: "deposit",
                         accountId: accountA._id,
                         accountNumber: req.body.accountNumber,
                         interactedAccountId: accountA._id,
                         postBalance: newBalance,
-                        amount: req.body.amount,
+                        amount: parseFloat(req.body.amount),
                         ip: userAgentService.getIpCustomer(req),
                         userAgent: userAgentService.getUserAgent(req),
                         description: ("Deposito por envelope")
@@ -31,8 +31,8 @@ module.exports = {
                     await accountRepository.updateBalance(accountA.accountNumber, req.body.amount, userAgentService.getUserAgent(req), userAgentService.getIpCustomer(req));
                 //Transferencia
                 } else if (req.body.transactionType == 1) {
-                    let postBalanceA = accountA.balance + (parseFloat(req.body.amount) * -1);
-                    let postBalanceB = accountB.balance + (parseFloat(req.body.amount));
+                    let postBalanceA =  parseFloat(accountA.balance) + (parseFloat(req.body.amount) * -1);
+                    let postBalanceB =  parseFloat(accountB.balance) + (parseFloat(req.body.amount));
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountA._id,
@@ -60,7 +60,7 @@ module.exports = {
                 }
                 // Saque
                 else if (req.body.transactionType == 3) {
-                    let postBalanceA = accountA.balance + (parseFloat(req.body.amount) * -1);
+                    let postBalanceA =  parseFloat(accountA.balance) + (parseFloat(req.body.amount) * -1);
                     await transactioRepository.create({
                         type: "transfer",
                         accountId: accountA._id,
@@ -76,7 +76,7 @@ module.exports = {
                 }
                 // Saque
                 else if (req.body.transactionType == 4) {
-                    let postBalanceA = accountA.balance + (parseFloat(req.body.amount) * -1);
+                    let postBalanceA =  parseFloat(accountA.balance) + (parseFloat(req.body.amount) * -1);
                     await transactioRepository.create({
                         type: "debt",
                         accountId: accountA._id,

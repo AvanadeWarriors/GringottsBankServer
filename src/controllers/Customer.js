@@ -51,7 +51,6 @@ module.exports = {
     },
 
     async auth(req, res, next){
-        try {
 
             const customer = await repositoryCustomer.authenticate({
                 cpf: req.body.cpf,
@@ -86,12 +85,6 @@ module.exports = {
                 });
             }
 
-        } catch (error) {
-            res.status(500).json({
-                success: 'false',
-                message: error
-            })
-        }
     },
 
 }

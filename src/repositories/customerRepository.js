@@ -17,9 +17,13 @@ exports.authenticate = async(data) => {
         password: data.password
     });
 
-    const account = await AccountModel.findOne({
-        customerId: res._id
-    })
+    if(!res){
+        return false;
+    }else{
+        const account = await AccountModel.findOne({
+            customerId: res._id
+        })
+    }
 
     if(account.enabled){
         return res;
