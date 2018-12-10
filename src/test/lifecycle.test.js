@@ -160,3 +160,18 @@ test('get /account/statement/output/10000/10', async()=>{
             expect(response.body.accountStatement).toBeDefined();
         });
 });
+test('post /account/contacts', async ()=>{
+    return request(url)
+        .post('/account/contacts')
+        .set('x-access-token', token)
+        .set('Content-Type', 'application/json')
+        .send({
+            "accountNumber": 10000,
+            "contactName":'João',
+            "accountNumberContact": 10001,
+            "cpfContact": '73368473310'
+        })
+        .then(response =>{
+            expect(response.status).toBe(200);
+        }).catch(fail)
+});
