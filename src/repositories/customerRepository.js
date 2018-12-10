@@ -16,19 +16,17 @@ exports.authenticate = async(data) => {
         cpf: data.cpf,
         password: data.password
     });
-
-    if(!res){
-        return false;
-    }else{
+    
+    if(res){
         const account = await AccountModel.findOne({
             customerId: res._id
         })
-    }
 
-    if(account.enabled){
-        return res;
-    }else{
-        return false;
+        if(account.enabled){
+            return res;
+        }else{
+            return false;
+        }
     }
 
 }
